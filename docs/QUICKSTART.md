@@ -2,6 +2,8 @@
 
 Get ReSell up and running in 5 minutes!
 
+> **Windows Users**: This guide uses Unix-style commands. For Windows-specific instructions with PowerShell commands, see the [Windows Installation Guide](WINDOWS_SETUP.md).
+
 ## Prerequisites
 
 - Docker & Docker Compose

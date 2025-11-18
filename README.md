@@ -59,7 +59,11 @@ A modern, modular e-commerce backend built with Go, designed for B2B and B2C ope
 - Docker & Docker Compose
 - make (optional, for convenience)
 
+> **Windows Users**: See the [Windows Installation Guide](docs/WINDOWS_SETUP.md) for detailed Windows-specific setup instructions.
+
 ### Installation
+
+#### Linux / macOS
 
 1. Clone the repository:
 ```bash
