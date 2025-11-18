@@ -42,7 +42,7 @@ func (c *MockConnector) GetAvailableStock(ctx context.Context, variantID, compan
 
 	if locationID == nil {
 		// Return first match for variant
-		for key, stock := range c.stock {
+		for _, stock := range c.stock {
 			if stock.VariantID == variantID {
 				return stock, nil
 			}

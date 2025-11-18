@@ -9,8 +9,11 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/Daumas-hugo/ReSell/internal/companies"
 	"github.com/Daumas-hugo/ReSell/internal/config"
 	"github.com/Daumas-hugo/ReSell/internal/database"
+	"github.com/Daumas-hugo/ReSell/internal/orders"
+	"github.com/Daumas-hugo/ReSell/internal/products"
 	"github.com/Daumas-hugo/ReSell/pkg/logger"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -49,31 +52,46 @@ func main() {
 		w.Write([]byte("OK"))
 	})
 
+	// Initialize services and handlers
+	companiesService := companies.NewService(db.DB)
+	companiesHandler := companies.NewHandler(companiesService, log)
+
+	productsService := products.NewService(db.DB)
+	productsHandler := products.NewHandler(productsService, log)
+
+	ordersService := orders.NewService(db.DB)
+	ordersHandler := orders.NewHandler(ordersService, log)
+
 	// API routes
 	r.Route("/api/v1", func(r chi.Router) {
 		// Companies
-		r.Route("/companies", func(r chi.Router) {
-			// TODO: Add company routes
-		})
-
-		// Customers
-		r.Route("/customers", func(r chi.Router) {
-			// TODO: Add customer routes
-		})
+		r.Route("/companies", companiesHandler.RegisterRoutes)
 
 		// Products
-		r.Route("/products", func(r chi.Router) {
-			// TODO: Add product routes
-		})
+		r.Route("/products", productsHandler.RegisterRoutes)
 
 		// Orders
-		r.Route("/orders", func(r chi.Router) {
-			// TODO: Add order routes
-		})
+		r.Route("/orders", ordersHandler.RegisterRoutes)
 
 		// Customer portal
 		r.Route("/me", func(r chi.Router) {
-			// TODO: Add customer portal routes
+			// Get current user info (requires auth middleware)
+			r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+				// TODO: Implement after Keycloak auth
+				w.WriteHeader(http.StatusNotImplemented)
+			})
+
+			// Get user's orders
+			r.Get("/orders", func(w http.ResponseWriter, r *http.Request) {
+				// TODO: Implement after Keycloak auth
+				w.WriteHeader(http.StatusNotImplemented)
+			})
+
+			// Get user's companies
+			r.Get("/companies", func(w http.ResponseWriter, r *http.Request) {
+				// TODO: Implement after Keycloak auth
+				w.WriteHeader(http.StatusNotImplemented)
+			})
 		})
 	})
 
